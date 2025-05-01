@@ -33,8 +33,7 @@ class CertificadoTestCase(unittest.TestCase):
         self.assertEqual(
             str(context.exception),
             (
-                """Falha ao abrir arquivo do certificado digital A1.
-                Verifique o local do arquivo."""
+                "Falha ao abrir arquivo do certificado digital A1. Verifique o local do arquivo."
             ),
         )
 
@@ -59,7 +58,8 @@ class CertificadoTestCase(unittest.TestCase):
         texto_inicial_esperado = "-----BEGIN PRIVATE KEY-----"
         texto_inicial_gerado = cert[0].decode("utf-8")
 
-        self.assertTrue(texto_inicial_gerado.startswith(texto_inicial_esperado))
+        self.assertTrue(texto_inicial_gerado.startswith(
+            texto_inicial_esperado))
 
         self.a1.excluir()
 

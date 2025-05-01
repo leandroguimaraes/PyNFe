@@ -22,7 +22,8 @@ class Certificado(Entidade):
 
     def __new__(cls, *args, **kwargs):
         if cls == Certificado:
-            raise Exception("Esta classe nao pode ser instanciada diretamente!")
+            raise Exception(
+                "Esta classe nao pode ser instanciada diretamente!")
         else:
             return super(Certificado, cls).__new__(cls)
 
@@ -48,13 +49,11 @@ class CertificadoA1(Certificado):
                 cert_conteudo = cert_arquivo.read()
         except FileNotFoundError as exc:
             raise FileNotFoundError(
-                """Falha ao abrir arquivo do certificado digital A1.
-                Verifique o local do arquivo."""
+                "Falha ao abrir arquivo do certificado digital A1. Verifique o local do arquivo."
             ) from exc
         except PermissionError as exc:
             raise PermissionError(
-                """Falha ao abrir arquivo do certificado digital A1.
-                Verifique as permissoes do arquivo."""
+                "Falha ao abrir arquivo do certificado digital A1. Verifique as permissoes do arquivo."
             ) from exc
         except Exception as exc:
             raise Exception(
@@ -86,7 +85,8 @@ class CertificadoA1(Certificado):
                 arqcert.write(cert.public_bytes(Encoding.PEM))
             with tempfile.NamedTemporaryFile(delete=False) as arqchave:
                 arqchave.write(
-                    chave.private_bytes(Encoding.PEM, PrivateFormat.PKCS8, NoEncryption())
+                    chave.private_bytes(
+                        Encoding.PEM, PrivateFormat.PKCS8, NoEncryption())
                 )
             self.arquivos_temp.append(arqchave.name)
             self.arquivos_temp.append(arqcert.name)
@@ -95,7 +95,8 @@ class CertificadoA1(Certificado):
             # Certificado
             cert = cert.public_bytes(Encoding.PEM).decode("utf-8")
             # Chave, string decodificada da chave privada
-            chave = chave.private_bytes(Encoding.PEM, PrivateFormat.PKCS8, NoEncryption())
+            chave = chave.private_bytes(
+                Encoding.PEM, PrivateFormat.PKCS8, NoEncryption())
 
             return chave, cert
 

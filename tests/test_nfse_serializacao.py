@@ -31,6 +31,7 @@ class SerializacaoNFSeTest:
         servico = Servico(
             valor_servico=Decimal('100.00'),
             iss_retido=1,  # 1 - Sim; 2 - Não
+            exigibilidade=1,
             item_lista='0101',
             discriminacao='Mensalidade',
             codigo_municipio=obter_codigo_por_municipio(
@@ -87,13 +88,12 @@ class SerializacaoNFSeTest:
 
         a1 = AssinaturaA1(config.certificado, config.senha)
         xml_assinado = a1.assinar(nfse, True)
-        xml_assinado = xml_assinado.replace("\n", "")
 
         return xml_assinado
 
     @staticmethod
     def strip_xml(xml: str) -> str:
-        return re.sub(r">\s+<", "><", xml.replace("\n", "").strip())
+        return re.sub(r">\s+<", "><", xml.strip())
 
     @staticmethod
     def limpa_namespace() -> None:
@@ -125,7 +125,7 @@ class SerializacaoNFSeTest:
     @staticmethod
     def _get_emitente() -> Emitente:
         return Emitente(
-            cnpj='99999999999999',
+            cnpj='45111111111100',
             inscricao_municipal='000000'
         )
 
